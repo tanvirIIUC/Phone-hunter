@@ -1,14 +1,14 @@
 
-const phoneLoad= (searchText) =>{
+const phoneLoad= (searchText,limit) =>{
    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
      fetch(url)
     .then(res => res.json())
-    .then(data => phoneDisplay(data.data))
+    .then(data => phoneDisplay(data.data,limit))
 }
 
 
  
-const phoneDisplay = (mobiledatas) =>{
+const phoneDisplay = (mobiledatas,limit) =>{
      const phoneContainer = document.getElementById('phone-container');
      phoneContainer.innerHTML=``;
     //  for(data of mobiledatas)
@@ -16,8 +16,18 @@ const phoneDisplay = (mobiledatas) =>{
     //     console.log(data);
     //  }
     // display 10 element
-    mobiledatas= mobiledatas.slice(0,10);
+    const seeall= document.getElementById('see-all');
+    if(limit && mobiledatas.length>10)
+    {
+      mobiledatas= mobiledatas.slice(0,10);
+      seeall.classList.remove('d-none');
+    }
+    else {
+      seeall.classList.add('d-none');
+    }
+   
     const notFound = document.getElementById('No-found');
+    
     if(mobiledatas.length === 0)
     {
         
@@ -45,12 +55,16 @@ const phoneDisplay = (mobiledatas) =>{
     });
 }
 
-document.getElementById('search-button').addEventListener('click',function()
-{
+ const process = (limit) =>{
     const inputField = document.getElementById('input-field');
     const searchText = inputField.value;
-    phoneLoad(searchText);
+    phoneLoad(searchText,limit);
     toglesping(true);
+
+ }
+document.getElementById('search-button').addEventListener('click',function()
+{
+  process(10);
 
 }
 )
@@ -65,3 +79,6 @@ const toglesping = isload =>{
         showSping.classList.add('d-none');
      }
 }
+document.getElementById('show-all').addEventListener('click',function(){
+  process();
+})
