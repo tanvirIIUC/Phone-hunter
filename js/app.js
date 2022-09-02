@@ -41,6 +41,7 @@ const phoneDisplay = (mobiledatas) =>{
         `;
         phoneContainer.appendChild(PhoneDiv);
         console.log(data);
+        toglesping(false);
     });
 }
 
@@ -49,7 +50,18 @@ document.getElementById('search-button').addEventListener('click',function()
     const inputField = document.getElementById('input-field');
     const searchText = inputField.value;
     phoneLoad(searchText);
-
+    toglesping(true);
 
 }
 )
+
+const toglesping = isload =>{
+    const showSping = document.getElementById('sping');
+     if(toglesping)
+     {
+        showSping.classList.remove('d-none');
+     }
+     else {
+        showSping.classList.add('d-none');
+     }
+}
