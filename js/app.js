@@ -15,6 +15,17 @@ const phoneDisplay = (mobiledatas) =>{
     //  {
     //     console.log(data);
     //  }
+    // display 10 element
+    mobiledatas= mobiledatas.slice(0,10);
+    const notFound = document.getElementById('No-found');
+    if(mobiledatas.length === 0)
+    {
+        
+        notFound.classList.remove('d-none');
+    }
+    else {
+        notFound.classList.add('d-none');
+    }
     mobiledatas.forEach(data => {
         const PhoneDiv = document.createElement('div');
         PhoneDiv.innerHTML= `
